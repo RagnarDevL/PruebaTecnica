@@ -1,53 +1,129 @@
 ﻿@model Producto
 
-<h2>Crear Producto</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Producto</h4>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(m => m.Codigo, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Codigo)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Nombre, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Nombre)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Caracteristicas, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Caracteristicas)
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Precio, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Precio)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Empresa, "Empresa", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("EmpresaNIT", null, "Seleccione Empresa", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+@{
+    ViewData["Title"] = "Crear Producto";
 }
+
+<!-- Estilos personalizados -->
+<style>
+    /* Estilo para la cabecera de la página */
+    .page-header {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    /* Estilo para el contenedor del formulario */
+    .form-container {
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilo para los campos del formulario */
+    .form-group label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-group input, .form-group select {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    /* Estilo para los mensajes de error */
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    /* Estilo para los botones */
+    .btn-primary, .btn-secondary {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    /* Centrar los botones de acción */
+    .action-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="form-container">
+    <!-- Título de la página -->
+    <h2 class="page-header">Crear Producto</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Campo Producto ID (opcional si es autogenerado en la base de datos) -->
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.ProductoId, new { @class = "form-label" })
+            @Html.EditorFor(m => m.ProductoId, new { @class = "form-control", placeholder = "Ingrese el ID del producto" })
+            @Html.ValidationMessageFor(m => m.ProductoId, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Campo Nombre -->
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+            @Html.EditorFor(m => m.Nombre, new { @class = "form-control", placeholder = "Ingrese el nombre del producto" })
+            @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Campo Precio -->
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Precio, new { @class = "form-label" })
+            @Html.EditorFor(m => m.Precio, new { @class = "form-control", placeholder = "Ingrese el precio del producto" })
+            @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Campo Empresa (DropDownList) -->
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Empresa, "Empresa", new { @class = "form-label" })
+            @Html.DropDownList("EmpresaNIT", null, "Seleccione Empresa", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Empresa, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Botón para guardar -->
+        <div class="action-buttons">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+        </div>
+
+        <!-- Enlaces a otras acciones -->
+        <div class="action-buttons mt-4">
+            @Html.ActionLink("Ver Inventario", "Index", "Inventario", new { }, new { @class = "btn btn-secondary mx-2" })
+            @Html.ActionLink("Crear Empresa", "CreateEmpresa", "Empresa", new { }, new { @class = "btn btn-secondary mx-2" })
+        </div>
+    }
+</div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>

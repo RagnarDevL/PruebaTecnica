@@ -32,31 +32,16 @@ namespace LiteThinkingPrueba.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind( "Codigo,Nombre,Caracteristicas,Precio,EmpresaNIT")] Producto producto)
         {
-            _logger.LogInformation("Los datos del formulario son válidos. Codigo: {Codigo}, Nombre: {Nombre}, Caracteristicas: {Caracteristicas}, Empresa: {Empresa}",
-                                         producto.Codigo, producto.Nombre, producto.Caracteristicas, producto.Empresa);
+            _logger.LogInformation("Los datos del formulario son válidos. EmpresaId: {Empresa}",
+                                      producto.Empresa);
 
-            if (ModelState.IsValid)
-            {
-                _logger.LogInformation("INFORMACION VALIDA");
-
+            _logger.LogInformation("INFORMACION VALIDA");
+                producto.EmpresaId = 12313434;
                 _context.Productos.Add(producto);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                // Registrar un log con los detalles de los errores de validación
-                foreach (var modelState in ModelState)
-                {
-                    foreach (var error in modelState.Value.Errors)
-                    {
-                        _logger.LogWarning("Error en el campo {Field}: {Error}", modelState.Key, error.ErrorMessage);
-                    }
-                }
+             return RedirectToAction("Index", "Inventario");
 
-            }
-            ViewBag.EmpresaNIT = new SelectList(_context.Empresas, "NIT", "Nombre", producto.Empresa);
-            return View(producto);
+
         }
     }
 }

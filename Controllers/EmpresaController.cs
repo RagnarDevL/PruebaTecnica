@@ -58,7 +58,7 @@ namespace LiteThinkingPrueba.Controllers
                     _logger.LogInformation("Empresa creada exitosamente en la base de datos. NIT: {NIT}", empresa.NIT);
 
                     // Redirigir a alguna otra página, como el listado de empresas
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Create", "Producto");
                 }
                 catch (Exception ex)
                 {

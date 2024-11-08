@@ -48,12 +48,11 @@ namespace LiteThinkingPrueba.Migrations
 
             modelBuilder.Entity("LiteThinkingPrueba.Models.Producto", b =>
                 {
-                    b.Property<string>("Codigo")
-                        .HasColumnType("text");
+                    b.Property<int>("ProductoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Caracteristicas")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductoId"));
 
                     b.Property<int>("EmpresaId")
                         .HasColumnType("integer");
@@ -62,11 +61,10 @@ namespace LiteThinkingPrueba.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Precio")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Precio")
+                        .HasColumnType("integer");
 
-                    b.HasKey("Codigo");
+                    b.HasKey("ProductoId");
 
                     b.HasIndex("EmpresaId");
 

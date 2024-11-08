@@ -7,10 +7,9 @@ namespace LiteThinkingPrueba.Models
     {
        
             [Key]
-            public string Codigo { get; set; }
+            public int ProductoId { get; set; }
             public string Nombre { get; set; }
-            public string Caracteristicas { get; set; }
-            public string Precio { get; set; }
+            public int Precio { get; set; }
 
             [Required]
             public int EmpresaId { get; set; }
